@@ -15,6 +15,7 @@ const db = mysql.createConnection(
         host: 'localhost',
         user: 'root',
         password: 'r00tpassword',
+        database: 'nodemysql'
     }
 );
 
@@ -28,7 +29,7 @@ db.connect(err => {
 
 //create database
 app.get('/createdb', (req, res) => {
-    const sql = `CREATE DATABASE nodemysql`;
+    const sql = 'CREATE DATABASE nodemysql';
     db.query(sql, err => {
         if (err) {
             res.status(500).json({ error: err.message });
@@ -42,7 +43,7 @@ app.get('/createdb', (req, res) => {
 
 //Create Table
 app.get('/createdemployee', (req, res) => {
-    const sql = `CREATE TABLE employee(id int AUTO_INCREMENT, first_name VARCHAR(30),last_name VARCHAR(30), role_id INT, manager_id INT)`;
+    let sql = 'CREATE TABLE employee(id int AUTO_INCREMENT, first_name VARCHAR(30),last_name VARCHAR(30), role_id INT, manager_id INT)';
     db.query(sql, err => {
         if (err) {
             res.status(500).json({ error: err.message });
@@ -56,8 +57,8 @@ app.get('/createdemployee', (req, res) => {
 
 //Insert employee
 app.get('/employee1', (req, res) => {
-    const post = { first_name: 'Alexis', last_name: 'Mastro', role_id: 'Web Developer', manager_id: 1 };
-    const sql = 'INSERT INTO employee SET'
+    let post = { first_name: 'Alexis', last_name: 'Mastro', role_id: 'Web Developer', manager_id: '1' };
+    let sql = 'INSERT INTO employee SET'
     db.query(sql, post, err => {
         if (err) {
             res.status(500).json({ error: err.message });
@@ -69,6 +70,21 @@ app.get('/employee1', (req, res) => {
     });
 });
 
+//Select employee
+app.get('/selectemployee', (req, res) => {
+    let sql = 'SELECT * FROM employee'
+    let query = db.query(sql, post, err => {
+        if (err) {
+            res.status(500).json({ error: err.message });
+            return;
+        }
+        res.json({
+            message: 'Success, employee added!',
+        });
+    });
+});
+
+// Insert 
 
 // Default response for any other request (Not Found)
 app.use((req, res) => {
