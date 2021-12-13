@@ -1,4 +1,4 @@
-const { response } = require('express');
+require('dotenv').config()
 const inquirer = require('inquirer');
 const { connect } = require('./connection');
 const { viewDepartments, viewEmployees } = require('./utils/employees');

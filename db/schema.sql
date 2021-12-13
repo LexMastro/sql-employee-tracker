@@ -5,7 +5,7 @@ USE employee_db;
 
 CREATE TABLE department (
   id INT PRIMARY KEY,
-  name VARCHAR(30),
+  name VARCHAR(30)
   
 );
 
@@ -14,7 +14,6 @@ CREATE TABLE employee_role (
   title VARCHAR(30),
   salary DECIMAL,
   department_id INT,
-  PRIMARY KEY (id),
   FOREIGN KEY (department_id)
   REFERENCES department(id)
   ON DELETE SET NULL
@@ -26,7 +25,7 @@ CREATE TABLE employee (
   first_name VARCHAR(30) NOT NULL,
   last_name VARCHAR(30) NOT NULL,
   role_id INT,
-  manager_id INT
+  manager_id INT,
   FOREIGN KEY (role_id)
   REFERENCES employee_role(id)
   ON DELETE SET NULL,
